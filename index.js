@@ -1,6 +1,8 @@
 // index.js
 const { fetchMyIP, fetchCoordsByIP } = require('./iss');
 
+const ip = '99.224.60.';
+
 fetchMyIP((error, ip) => {
   if (error) {
     console.log("It didn't work!", error);
@@ -9,10 +11,10 @@ fetchMyIP((error, ip) => {
   console.log('It worked! Returned IP:', ip);
 });
 
-fetchCoordsByIP((error, data) => {
+fetchCoordsByIP(ip, (error, data) => {
   if (error) {
-    console.log("Geo coordinates didn't work!", error);
+    console.log("It didn't work!", error);
     return;
-  } else
-    console.log(data);
+  }
+  console.log('It worked!', data);
 });
