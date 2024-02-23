@@ -10,6 +10,7 @@
 const request = require('request');
 
 const fetchMyIP = function(callback) {
+  //Fetch IP address using request
   request('https://api.ipify.org?format=json', (error, response, body) => {
     //Error could be invalid domain, user offline, etc
     if (error) {
@@ -27,4 +28,27 @@ const fetchMyIP = function(callback) {
   });
 };
 
-module.exports = { fetchMyIP };
+const fetchCoordsByIP = function(callback) {
+  const ip = '99.224.60.214';
+  //Fetch latitude and longitude based on IP
+  request(`http://ipwho.is/${ip}`, (error, response, body) => {
+    //Error if invalid domain
+    if (error) {
+      return callback(error, null);
+    }
+    //Error if invalid IP
+    if (JSON.parse(body).success === false) {
+      const msg = `Invalid IP address when fetching ${ip}`;
+      callback(null, msg);
+    } else {
+      //No error, return lat & long
+      const latlong = {
+        latitude: JSON.parse(body).latitude,
+        longitude: JSON.parse(body).longitude
+      };
+      callback(null, latlong);
+    }
+  });
+};
+
+module.exports = { fetchMyIP, fetchCoordsByIP };
