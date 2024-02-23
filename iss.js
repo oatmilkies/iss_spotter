@@ -33,7 +33,7 @@ const fetchCoordsByIP = function(ip, callback) {
   //Fetch latitude and longitude based on IP
   request(`http://ipwho.is/${ip}`, (error, response, body) => {
 
-    //Error if invalid domain
+    //Error could be invalid domain, user offline, etc
     if (error) {
       return callback(error, null);
     }
@@ -63,11 +63,8 @@ const fetchCoordsByIP = function(ip, callback) {
  *   - The fly over times as an array of objects (null if error). Example:
  *     [ { risetime: 134564234, duration: 600 }, ... ]
  */
-const lon = "-79.3831843";
-const lat = "43.653226";
-
 const fetchISSFlyOverTimes = function(coords, callback) {
-  request(`https://iss-flyover.herokuapp.com/json/?lat=${lat}&lon=${lon}`, (error, response, body) => {
+  request(`https://iss-flyover.herokuapp.com/json/?lat=${coords.latitude}&lon=${coords.longitude}`, (error, response, body) => {
 
     //Error could be invalid domain, user offline, etc
     if (error) {
