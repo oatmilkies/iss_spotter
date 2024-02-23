@@ -1,7 +1,7 @@
 // index.js
 const { fetchMyIP, fetchCoordsByIP } = require('./iss');
 
-const ip = '99.224.60.';
+const ip = '99.224.60.214';
 
 fetchMyIP((error, ip) => {
   if (error) {
